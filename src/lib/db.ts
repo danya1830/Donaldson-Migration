@@ -1,19 +1,16 @@
-import Database from 'better-sqlite3';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
-const dbPath = path.join(process.cwd(), 'scanner.db');
-const db = new Database(dbPath);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://bhxuozbwrvdufsiaygmi.supabase.co';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoeHVvemJ3cnZkdWZzaWF5Z21pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NjcxNTAsImV4cCI6MjA2MjA0MzE1MH0.WG8F1P1W1V8YLI1W1V8YLI1W1V8YLI1W1V8YLI1W1V8';
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS scans (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    location TEXT NOT NULL,
-    partnumber TEXT NOT NULL,
-    qty INTEGER NOT NULL,
-    condition TEXT NOT NULL CHECK(condition IN ('good', 'damage')),
-    pallet_number TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default db;
+export interface Scan {
+  id: number;
+  location: string;
+  partnumber: string;
+  qty: number;
+  condition: 'good' | 'damage';
+  pallet_number: string;
+  created_at: string;
+}

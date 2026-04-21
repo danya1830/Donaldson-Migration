@@ -1,10 +1,18 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { supabase } from '@/lib/db';
 import { ScanInput } from '@/types/scan';
 
 export async function GET() {
-  const scans = db.prepare('SELECT * FROM scans ORDER BY created_at DESC').all();
-  return NextResponse.json(scans);
+  const { data, error } = await supabase
+    .from('scans')
+    .select('*')
+    .order('created_at', { ascending: false });
+  
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+  
+  return NextResponse.json(data || []);
 }
 
 export async function POST(request: Request) {
@@ -16,12 +24,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
   
-  const stmt = db.prepare(`
-    INSERT INTO scans (location, partnumber, qty, condition, pallet_number)
-    VALUES (?, ?, ?, ?, ?)
-  `);
+  const { data, error } = await supabase
+    .from('scans')
+    .insert([{ location, partnumber, qty, condition, pallet_number }])
+    .select()
+    .single();
   
-  const result = stmt.run(location, partnumber, qty, condition, pallet_number);
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
   
-  return NextResponse.json({ id: result.lastInsertRowid, ...body }, { status: 201 });
+  return NextResponse.json(data, { status: 201 });
 }

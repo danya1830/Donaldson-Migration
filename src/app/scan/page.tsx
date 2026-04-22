@@ -47,6 +47,7 @@ export default function ScanPage() {
           qty: parseInt(qty),
           condition,
           pallet_number: palletNumber,
+          user_name: localStorage.getItem('username') || 'unknown',
         }),
       });
 

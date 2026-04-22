@@ -108,7 +108,7 @@ export default function ReportsPage() {
   };
 
   const downloadCSV = () => {
-    const headers = ['ID', 'Location', 'Part Number', 'QTY', 'Condition', 'Pallet Number', 'Created At'];
+    const headers = ['ID', 'Location', 'Part Number', 'QTY', 'Condition', 'Pallet Number', 'User', 'Created At'];
     const csvContent = [
       headers.join(','),
       ...filteredScans.map((s) =>
@@ -119,6 +119,7 @@ export default function ReportsPage() {
           s.qty,
           s.condition,
           `"${s.pallet_number}"`,
+          `"${s.user_name || '-'}"`,
           `"${s.created_at}"`,
         ].join(',')
       ),
@@ -238,6 +239,7 @@ export default function ReportsPage() {
                   <th className="px-4 py-3">QTY</th>
                   <th className="px-4 py-3">Condition</th>
                   <th className="px-4 py-3">Pallet Number</th>
+                  <th className="px-4 py-3">User</th>
                   <th className="px-4 py-3">Created At</th>
                   {localStorage.getItem('role') === 'admin' && (
                     <th className="px-4 py-3">Actions</th>
@@ -263,6 +265,7 @@ export default function ReportsPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-gray-600">{scan.pallet_number}</td>
+                    <td className="px-4 py-3 font-medium text-blue-600">{scan.user_name || '-'}</td>
                     <td className="px-4 py-3 text-gray-500">
                       {new Date(scan.created_at).toLocaleString()}
                     </td>

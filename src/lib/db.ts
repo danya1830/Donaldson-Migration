@@ -12,5 +12,6 @@ export interface Scan {
   qty: number;
   condition: 'good' | 'damage';
   pallet_number: string;
+  user_name: string;
   created_at: string;
 }

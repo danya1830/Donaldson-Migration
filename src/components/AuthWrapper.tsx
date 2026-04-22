@@ -2,13 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useAuth } from '@/lib/auth';
 
 export default function AuthWrapper({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const { user, logout } = useAuth();
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('username');
@@ -22,7 +20,6 @@ export default function AuthWrapper({ children }: { children: React.ReactNode })
   const handleLogout = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('role');
-    logout();
     router.push('/login');
   };
 

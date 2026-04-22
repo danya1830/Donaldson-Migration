@@ -72,7 +72,7 @@ export default function ReportsPage() {
     
     const newLocation = prompt('Location:', scan.location);
     const newPartnumber = prompt('Part Number:', scan.partnumber);
-    const newQty = prompt('QTY:', scan.qty);
+    const newQty = prompt('QTY:', String(scan.qty));
     const newCondition = prompt('Condition (good/damage):', scan.condition);
     const newPallet = prompt('Pallet Number:', scan.pallet_number);
     

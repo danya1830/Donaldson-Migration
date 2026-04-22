@@ -8,7 +8,7 @@ export default function ScanPage() {
   const [location, setLocation] = useState('');
   const [partnumber, setPartnumber] = useState('');
   const [qty, setQty] = useState('');
-  const [condition, setCondition] = useState<'good' | 'damage'>('good');
+  const [condition, setCondition] = useState<'good' | 'damage' | ''>('');
   const [palletNumber, setPalletNumber] = useState('');
   const [scans, setScans] = useState<Scan[]>([]);
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,12 @@ export default function ScanPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!condition) {
+      setMessage('Please select condition');
+      return;
+    }
+    
     setLoading(true);
     setMessage('');
     setSuccess(false);
@@ -58,7 +64,7 @@ export default function ScanPage() {
         setPartnumber('');
         setQty('');
         setPalletNumber('');
-        setCondition('good');
+        setCondition('');
         fetchScans();
       } else {
         const errorData = await res.json();
@@ -143,14 +149,16 @@ export default function ScanPage() {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">Condition</label>
+              <label className="mb-2 block text-sm font-medium text-gray-700">Condition <span className="text-red-500">*</span></label>
               <div className="flex gap-4">
                 <button
                   type="button"
                   onClick={() => setCondition('good')}
                   className={`flex-1 rounded-xl py-3 font-medium transition-all ${
                     condition === 'good'
-                      ? 'bg-green-500 text-white shadow-lg'
+                      ? 'bg-green-500 text-white shadow-lg ring-2 ring-green-300'
+                      : condition === ''
+                      ? 'bg-gray-50 text-gray-400 ring-2 ring-gray-200 border-2 border-dashed'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
@@ -161,7 +169,9 @@ export default function ScanPage() {
                   onClick={() => setCondition('damage')}
                   className={`flex-1 rounded-xl py-3 font-medium transition-all ${
                     condition === 'damage'
-                      ? 'bg-red-500 text-white shadow-lg'
+                      ? 'bg-red-500 text-white shadow-lg ring-2 ring-red-300'
+                      : condition === ''
+                      ? 'bg-gray-50 text-gray-400 ring-2 ring-gray-200 border-2 border-dashed'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >

@@ -40,7 +40,7 @@ export default function AuthWrapper({ children }: { children: React.ReactNode })
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
-              <h1 className="text-xl font-bold text-blue-600">Scanner App</h1>
+              <h1 className="text-xl font-bold text-blue-600">Migration Dashboard</h1>
               <div className="flex space-x-4">
                 <a
                   href="/scan"

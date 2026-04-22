@@ -73,10 +73,6 @@ export default function LoginPage() {
           </div>
 
           <LoginForm />
-
-          <p className="mt-6 text-center text-sm text-gray-400">
-            opr1 / opr123 | opr2 / opr123 | admin / Jakarta123
-          </p>
         </div>
       </div>
     </AuthProvider>

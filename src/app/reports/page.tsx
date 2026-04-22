@@ -66,6 +66,47 @@ export default function ReportsPage() {
     }
   };
 
+  const handleEdit = async (id: number) => {
+    const scan = scans.find(s => s.id === id);
+    if (!scan) return;
+    
+    const newLocation = prompt('Location:', scan.location);
+    const newPartnumber = prompt('Part Number:', scan.partnumber);
+    const newQty = prompt('QTY:', scan.qty);
+    const newCondition = prompt('Condition (good/damage):', scan.condition);
+    const newPallet = prompt('Pallet Number:', scan.pallet_number);
+    
+    if (newLocation && newPartnumber && newQty && newCondition && newPallet) {
+      try {
+        const res = await fetch(`/api/scans/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            location: newLocation,
+            partnumber: newPartnumber,
+            qty: parseInt(newQty),
+            condition: newCondition,
+            pallet_number: newPallet,
+          }),
+        });
+        if (res.ok) fetchScans();
+      } catch (error) {
+        console.error('Error updating scan:', error);
+      }
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this scan?')) return;
+    
+    try {
+      const res = await fetch(`/api/scans/${id}`, { method: 'DELETE' });
+      if (res.ok) fetchScans();
+    } catch (error) {
+      console.error('Error deleting scan:', error);
+    }
+  };
+
   const downloadCSV = () => {
     const headers = ['ID', 'Location', 'Part Number', 'QTY', 'Condition', 'Pallet Number', 'Created At'];
     const csvContent = [
@@ -198,6 +239,9 @@ export default function ReportsPage() {
                   <th className="px-4 py-3">Condition</th>
                   <th className="px-4 py-3">Pallet Number</th>
                   <th className="px-4 py-3">Created At</th>
+                  {localStorage.getItem('role') === 'admin' && (
+                    <th className="px-4 py-3">Actions</th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -222,6 +266,24 @@ export default function ReportsPage() {
                     <td className="px-4 py-3 text-gray-500">
                       {new Date(scan.created_at).toLocaleString()}
                     </td>
+                    {localStorage.getItem('role') === 'admin' && (
+                      <td className="px-4 py-3">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleEdit(scan.id)}
+                            className="rounded bg-blue-500 px-2 py-1 text-xs text-white hover:bg-blue-600"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(scan.id)}
+                            className="rounded bg-red-500 px-2 py-1 text-xs text-white hover:bg-red-600"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>

@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '@/lib/auth';
 
 export default function AuthWrapper({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem('isLoggedIn');
+    const loggedIn = localStorage.getItem('username');
     if (!loggedIn && pathname !== '/login') {
       router.push('/login');
     } else if (loggedIn) {
@@ -18,7 +20,9 @@ export default function AuthWrapper({ children }: { children: React.ReactNode })
   }, [pathname, router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    logout();
     router.push('/login');
   };
 
@@ -29,6 +33,9 @@ export default function AuthWrapper({ children }: { children: React.ReactNode })
   if (!isLoggedIn) {
     return null;
   }
+
+  const role = localStorage.getItem('role');
+  const username = localStorage.getItem('username');
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -60,12 +67,17 @@ export default function AuthWrapper({ children }: { children: React.ReactNode })
                 </a>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-600"
-            >
-              Logout
-            </button>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-gray-600">
+                {username} <span className="text-xs font-bold text-gray-400">({role})</span>
+              </span>
+              <button
+                onClick={handleLogout}
+                className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </nav>

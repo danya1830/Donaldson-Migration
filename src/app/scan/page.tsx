@@ -61,10 +61,11 @@ export default function ScanPage() {
         setCondition('good');
         fetchScans();
       } else {
-        setMessage('Failed to save scan');
+        const errorData = await res.json();
+        setMessage('Failed: ' + (errorData.error || 'Unknown error'));
       }
-    } catch {
-      setMessage('Error saving scan');
+    } catch (err) {
+      setMessage('Error: ' + String(err));
     } finally {
       setLoading(false);
     }

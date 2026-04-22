@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   try {
     const body: ScanInput = await request.json();
     
-    const { location, partnumber, qty, condition, pallet_number } = body;
+    const { location, partnumber, qty, condition, pallet_number, user_name } = body;
     
     if (!location || !partnumber || !qty || !condition || !pallet_number) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     
     const { data, error } = await supabase
       .from('scans')
-      .insert([{ location, partnumber, qty, condition, pallet_number }])
+      .insert([{ location, partnumber, qty, condition, pallet_number, user_name }])
       .select()
       .single();
     

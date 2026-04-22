@@ -68,8 +68,9 @@ export default function LoginPage() {
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
           <div className="mb-6 text-center">
-            <h1 className="text-3xl font-bold text-gray-800">Migration Dashboard</h1>
-            <p className="mt-2 text-gray-500">Migration Dashboard</p>
+            <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              Migration Dashboard
+            </h1>
           </div>
 
           <LoginForm />

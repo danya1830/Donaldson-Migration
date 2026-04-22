@@ -267,7 +267,7 @@ export default function ReportsPage() {
                     <td className="px-4 py-3 text-gray-600">{scan.pallet_number}</td>
                     <td className="px-4 py-3 font-medium text-blue-600">{scan.user_name || '-'}</td>
                     <td className="px-4 py-3 text-gray-500">
-                      {new Date(scan.created_at).toLocaleString()}
+                      {new Date(scan.created_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
                     </td>
                     {localStorage.getItem('role') === 'admin' && (
                       <td className="px-4 py-3">

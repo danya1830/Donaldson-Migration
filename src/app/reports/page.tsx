@@ -53,11 +53,14 @@ export default function ReportsPage() {
     setLoading(true);
     try {
       const res = await fetch('/api/scans');
+      if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      setScans(data);
-      setFilteredScans(data);
+      setScans(Array.isArray(data) ? data : []);
+      setFilteredScans(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error('Error fetching scans');
+      console.error('Error fetching scans:', error);
+      setScans([]);
+      setFilteredScans([]);
     } finally {
       setLoading(false);
     }

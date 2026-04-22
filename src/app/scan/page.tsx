@@ -22,10 +22,12 @@ export default function ScanPage() {
   const fetchScans = async () => {
     try {
       const res = await fetch('/api/scans');
+      if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      setScans(data);
+      setScans(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error('Error fetching scans');
+      console.error('Error fetching scans:', error);
+      setScans([]);
     }
   };
 

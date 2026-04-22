@@ -109,6 +109,9 @@ export default function ReportsPage() {
 
   const downloadCSV = () => {
     const headers = ['ID', 'Location', 'Part Number', 'QTY', 'Condition', 'Pallet Number', 'User', 'Created At'];
+    const formatDate = (date: string) => {
+      return new Date(new Date(date).getTime() + (7 * 60 * 60 * 1000)).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+    };
     const csvContent = [
       headers.join(','),
       ...filteredScans.map((s) =>
@@ -120,7 +123,7 @@ export default function ReportsPage() {
           s.condition,
           `"${s.pallet_number}"`,
           `"${s.user_name || '-'}"`,
-          `"${s.created_at}"`,
+          `"${formatDate(s.created_at)}"`,
         ].join(',')
       ),
     ].join('\n');

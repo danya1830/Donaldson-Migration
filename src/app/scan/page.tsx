@@ -97,7 +97,7 @@ export default function ScanPage() {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Scan location..."
                   autoFocus
                 />
@@ -112,7 +112,7 @@ export default function ScanPage() {
                   value={partnumber}
                   onChange={(e) => setPartnumber(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Scan part number..."
                 />
               </div>
@@ -128,7 +128,7 @@ export default function ScanPage() {
                   value={qty}
                   onChange={(e) => setQty(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Enter quantity..."
                 />
               </div>
@@ -142,7 +142,7 @@ export default function ScanPage() {
                   value={palletNumber}
                   onChange={(e) => setPalletNumber(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Scan pallet number..."
                 />
               </div>
@@ -221,32 +221,32 @@ export default function ScanPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 text-left text-xs font-medium uppercase text-gray-400">
-                    <th className="pb-3">Location</th>
-                    <th className="pb-3">Part No</th>
-                    <th className="pb-3">Qty</th>
-                    <th className="pb-3">Condition</th>
-                    <th className="pb-3">Pallet</th>
+                  <tr className="border-b-2 border-gray-300 text-left text-sm font-bold uppercase text-gray-700">
+                    <th className="pb-4">Location</th>
+                    <th className="pb-4">Part No</th>
+                    <th className="pb-4">Qty</th>
+                    <th className="pb-4">Condition</th>
+                    <th className="pb-4">Pallet</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-gray-100">
                   {recentScans.map((scan) => (
-                    <tr key={scan.id} className="hover:bg-gray-50">
-                      <td className="py-3 font-medium">{scan.location}</td>
-                      <td className="py-3">{scan.partnumber}</td>
-                      <td className="py-3">{scan.qty}</td>
-                      <td className="py-3">
+                    <tr key={scan.id} className="hover:bg-blue-50 border-b border-gray-200">
+                      <td className="py-4 font-semibold text-gray-900">{scan.location}</td>
+                      <td className="py-4 font-medium text-gray-800">{scan.partnumber}</td>
+                      <td className="py-4 font-bold text-gray-900">{scan.qty}</td>
+                      <td className="py-4">
                         <span
-                          className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                          className={`inline-block rounded-full px-3 py-1 text-sm font-bold ${
                             scan.condition === 'good'
-                              ? 'bg-green-100 text-green-700'
-                              : 'bg-red-100 text-red-700'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-red-100 text-red-800'
                           }`}
                         >
                           {scan.condition}
                         </span>
                       </td>
-                      <td className="py-3 text-gray-500">{scan.pallet_number}</td>
+                      <td className="py-4 font-medium text-gray-700">{scan.pallet_number}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -257,25 +257,25 @@ export default function ScanPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
-        <div className="rounded-xl bg-white p-4 shadow">
-          <p className="text-sm text-gray-500">Total Scans</p>
-          <p className="text-2xl font-bold text-gray-800">{scans.length}</p>
+        <div className="rounded-xl bg-blue-600 p-5 shadow-lg">
+          <p className="text-sm font-medium text-blue-100">Total Scans</p>
+          <p className="text-3xl font-bold text-white">{scans.length}</p>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow">
-          <p className="text-sm text-gray-500">Good Condition</p>
-          <p className="text-2xl font-bold text-green-600">
+        <div className="rounded-xl bg-green-600 p-5 shadow-lg">
+          <p className="text-sm font-medium text-green-100">Good Condition</p>
+          <p className="text-3xl font-bold text-white">
             {scans.filter((s) => s.condition === 'good').length}
           </p>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow">
-          <p className="text-sm text-gray-500">Damage</p>
-          <p className="text-2xl font-bold text-red-600">
+        <div className="rounded-xl bg-red-600 p-5 shadow-lg">
+          <p className="text-sm font-medium text-red-100">Damage</p>
+          <p className="text-3xl font-bold text-white">
             {scans.filter((s) => s.condition === 'damage').length}
           </p>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow">
-          <p className="text-sm text-gray-500">Total QTY</p>
-          <p className="text-2xl font-bold text-blue-600">
+        <div className="rounded-xl bg-indigo-600 p-5 shadow-lg">
+          <p className="text-sm font-medium text-indigo-100">Total QTY</p>
+          <p className="text-3xl font-bold text-white">
             {scans.reduce((acc, s) => acc + s.qty, 0)}
           </p>
         </div>

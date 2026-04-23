@@ -97,9 +97,10 @@ export default function ScanPage() {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   required
-                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Scan location..."
                   autoFocus
+                  style={{ color: '#111827' }}
                 />
               </div>
 
@@ -112,8 +113,9 @@ export default function ScanPage() {
                   value={partnumber}
                   onChange={(e) => setPartnumber(e.target.value)}
                   required
-                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Scan part number..."
+                  style={{ color: '#111827' }}
                 />
               </div>
             </div>
@@ -128,8 +130,9 @@ export default function ScanPage() {
                   value={qty}
                   onChange={(e) => setQty(e.target.value)}
                   required
-                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Enter quantity..."
+                  style={{ color: '#111827' }}
                 />
               </div>
 
@@ -142,8 +145,9 @@ export default function ScanPage() {
                   value={palletNumber}
                   onChange={(e) => setPalletNumber(e.target.value)}
                   required
-                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  className="w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-lg text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   placeholder="Scan pallet number..."
+                  style={{ color: '#111827' }}
                 />
               </div>
             </div>

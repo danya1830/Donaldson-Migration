@@ -33,10 +33,14 @@ textarea,
 select {
   color: #111827 !important;
   -webkit-text-fill-color: #111827 !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 input::placeholder,
 textarea::placeholder {
   color: #9ca3af !important;
   opacity: 1 !important;
+  -webkit-text-fill-color: #9ca3af !important;
 }
